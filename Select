@@ -1,0 +1,49 @@
+SELECT * FROM item_pedidos JOIN produtos ON item_pedidos.fk_PRODUTOS_id_produto = produtos.id_produto 
+WHERE item_pedidos.fk_PEDIDOS_id_pedido;
+
+SELECT * FROM item_pedidos JOIN produtos ON item_pedidos.fk_PRODUTOS_id_produto = produtos.id_produto SUM(item_pedidos.valor) 
+WHERE item_pedidos.fk_PEDIDOS_id_pedido = 1;
+
+SELECT c.nome, c.telefone, e.logradouro, e.cep FROM clientes AS c JOIN enderecos AS e ON c.FK_ENDERECOS_id_endereco = e.id_endereco;
+
+SELECT c.nome, c.telefone, e.logradouro, e.cep FROM clientes c JOIN CLIENTES_ENDERECOS c_e ON c_e.FK_CLIENTES_id_cliente = c.id_cliente 
+JOIN enderecos e ON  c_e.FK_ENDERECOS_id_endereco = e.id_endereco;
+
+
+
+
+
+
+SELECT c.nome, c.telefone, e.logradouro, e.cep FROM 
+clientes c JOIN CLIENTES_ENDERECOS c_e ON c_e.FK_CLIENTES_id_cliente = c.id_cliente 
+JOIN enderecos e ON c_e.FK_ENDERECOS_id_endereco = e.id_endereco;
+
+
+
+
+
+
+SELECT p.forma_pagamento, sum(DISTINCT p.valor_total) as valor_total FROM clientes c 
+INNER JOIN pedidos p ON p.FK_CLIENTES_id_cliente = c.id_cliente LEFT JOIN item_pedidos i_p ON i_p.fk_PEDIDOS_id_pedido 
+
+
+
+
+
+SELECT p.nome, SUM(i_p.valor) AS valor_total FROM produtos p JOIN item_pedidos i_p ON i_p.fk_PRODUTOS_id_produto = p.id_produto  GROUP BY (p.nome);
+
+
+
+
+SELECT p.nome, SUM(i_p.quantidade) AS valor_total FROM produtos p JOIN item_pedidos i_p ON i_p.fk_PRODUTOS_id_produto = p.id_produto  GROUP BY (p.nome);
+
+
+
+
+SELECT p.nome,  (SUM(i_p.quantidade)*SUM(i_p.valor)) AS valor_total, SUM(i_p.quantidade) AS quantidade FROM produtos p 
+JOIN item_pedidos i_p ON i_p.fk_PRODUTOS_id_produto = p.id_produto  GROUP BY (p.nome);
+
+
+SELECT idfuncionarios AS ID, UPPER(nome), telefone, 'Funcionarios' AS tipo FROM funcionarios WHERE nome LIKE '%a%'
+UNION 
+SELECT id_cliente, UPPER(nome), telefone, 'Clientes' AS tipo FROM clientes  WHERE nome LIKE '%a%';
