@@ -100,3 +100,18 @@ ALTER TABLE CLIENTES_ENDERECOS ADD CONSTRAINT FK_CLIENTES_ENDERECOS_4
     REFERENCES CLIENTES (id_cliente);
 
 
+
+
+
+CREATE TABLE produtos_frutas(
+    id_produtos_frutas INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    unidade VARCHAR(20) NOT NULL,
+    quantidade INT NOT NULL,
+    valor_unidade FLOAT NOT NULL,
+    valor FLOAT NOT NULL,  
+    data_validade DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
