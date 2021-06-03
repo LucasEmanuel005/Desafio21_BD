@@ -1,0 +1,14 @@
+INSERT INTO enderecos(logradouro, numero, complemento, ponto_referencia, cep, bairro, estado) VALUE ('Rua A', '50', 'Apartamento 1, bloco 2', 'Próximo do mercado AA', '00000-000', 'jd. AAA', 'AAAA'),('Rua B', '51', 'Apartamento 2, bloco 3', 'Próximo do mercado BB', '00000-001', 'jd. BBB', 'BBBB');
+
+INSERT INTO clientes(nome, cpf, telefone, email) VALUE ('Maria', '000000000-00', '11 90000-0000', 'maria@gmail.com'), ('Joao', '000000000-11', '11 90000-0011', 'joao@gmail.com');
+            
+INSERT INTO produtos(nome, descricao, quantidade, valor) VALUE ('Sabao barra', 'Sabao Ypê - barra ', 20, 10), ('Sabao barra', 'Sabao minuano - barra', 50, 9.8), ('Sabao pó', 'Sabao Ypê - barra', 50, 8.5);
+
+
+INSERT INTO CLIENTES_ENDERECOS (FK_CLIENTES_id_cliente, FK_ENDERECOS_id_endereco) VALUES (1,1), (1,2);
+
+
+INSERT INTO pedidos(FK_CLIENTES_id_cliente, FK_CLIENTES_ENDERECOS_id_cliente_endereco, valor_total,forma_pagamento, d_entrega) VALUE (1, 1, 39.6, 'Boleto', 2021/06/20);
+
+
+INSERT INTO item_pedidos(fk_PRODUTOS_id_produto , fk_PEDIDOS_id_pedido, quantidade, valor) VALUE (1, 1, 2, 20), (2, 1, 2, 19.6); 
