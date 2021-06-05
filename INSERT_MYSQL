@@ -12,3 +12,30 @@ INSERT INTO pedidos(FK_CLIENTES_id_cliente, FK_CLIENTES_ENDERECOS_id_cliente_end
 
 
 INSERT INTO item_pedidos(fk_PRODUTOS_id_produto , fk_PEDIDOS_id_pedido, quantidade, valor) VALUE (1, 1, 2, 20), (2, 1, 2, 19.6); 
+
+
+
+
+
+-------------------------- produtos_frutas ------------
+INSERT INTO produtos_frutas (nome, descricao, grandeza, quantidade, valor_unidade, valor, 
+ data_validade) VALUES 
+('Abacaxi', 'abacaxi Pérola',  'un',      100,         4,           400, '2021-06-30'),
+('Laranja', 'Laranja Pera ',   'kg',      400,         2,           800, '2021-06-30'),
+('Manga', 'Manga espada',      'kg',      300,         3,           900, '2021-06-30'),
+('Carambola', 'Carambola',     'kg',      200,         4,           800, '2021-06-30'),  
+('Uva', 'Itália ',             'kg',      500,         8,          4000, '2021-06-30'),
+('Banana', 'Nanica',           'kg',      200,         3,           600, '2021-06-30'),
+('Pera', 'rocha',              'kg',      200,          6,         1200, '2021-06-30'),
+('Tangerina', 'ponkan',        'kg',      400,         2,           800, '2021-06-30'),
+('Maçã', 'red delicious',      'kg',      400,         2,           800, '2021-06-30'),
+('Caqui', 'Rama Forte',        'kg',      400,         2,           800, '2021-06-30');
+
+
+
+INSERT INTO produtos_frutas_2 (nome, descricao, grandeza, quantidade, valor_unidade, valor, 
+ data_validade) (SELECT nome, descricao, grandeza, quantidade, valor_unidade, valor, 
+ data_validade FROM produtos_frutas); 
+ 
+ 
+ 
