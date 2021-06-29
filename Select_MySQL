@@ -1,23 +1,16 @@
---       ITENS PEDIDO E PRODUTOS 
+--      ITENS PEDIDO E PRODUTOS 
 SELECT * FROM item_pedidos JOIN produtos ON item_pedidos.fk_PRODUTOS_id_produto = produtos.id_produto WHERE item_pedidos.fk_PEDIDOS_id_pedido;
 
-
--- VALOR TOTAL DE TODOS OS PRODUTOS
+--      VALOR TOTAL DE TODOS OS PRODUTOS
 SELECT  SUM(valor) SOMA_TOTAL FROM produtos_frutas;
 
-
-
-
--- RELACAO DE CLIENTE COM SEUS ENDERECOS
+--     RELACAO DE CLIENTE COM SEUS ENDERECOS
 SELECT c.nome, c.telefone, e.logradouro, e.cep FROM clientes c JOIN CLIENTES_ENDERECOS c_e ON c_e.FK_CLIENTES_id_cliente = c.id_cliente JOIN enderecos e ON c_e.FK_ENDERECOS_id_endereco = e.id_endereco;
-
-
 
 --      SOMA DOS VALORES DOS PEDIDOS POR DATA
 SELECT data_validade, SUM(valor) FROM produtos_frutas GROUP BY data_validade;
 
 SELECT DISTINCT(data_validade) FROM produtos_frutas;
-
 
 
 --      SOMA OS VALORES DISTINTOS
@@ -26,9 +19,11 @@ SELECT p.forma_pagamento, sum(DISTINCT p.valor_total) as valor_total FROM client
 SELECT p.forma_pagamento, sum(p.valor_total) as valor_total FROM clientes c INNER JOIN pedidos p ON p.FK_CLIENTES_id_cliente = c.id_cliente LEFT JOIN item_pedidos i_p ON i_p.fk_PEDIDOS_id_pedido;
 
 
-
 -- SOMA AGRUPANDO AS FORMAS DE PAGAMENTOS
 SELECT SUM(valor_total), forma_pagamento FROM pedidos  GROUP BY forma_pagamento;
+
+-- SOMA AGRUPANDO AS FORMAS DE PAGAMENTOS DE UM CLIENTE
+SELECT c.nome, p.forma_pagamento, SUM(valor_total) FROM pedidos AS p JOIN clientes AS c ON c.id_cliente = p.FK_CLIENTES_id_cliente WHERE c.nome = "Maria" GROUP BY forma_pagamento;
 
 --  SOMA A QUANTIDADE DE PRODUTOS AGRUPANDO PELO ID_PRODUTOS QUE ESTA NA TABELA ITEM PEDIDOS OU SEJA A QUANTIDADE DE CADA PRODUTOS VENDIDOS 
 SELECT p.nome, p.descricao, SUM(i_p.quantidade) AS quantidade FROM produtos p JOIN item_pedidos i_p ON i_p.fk_PRODUTOS_id_produto = p.id_produto  GROUP BY (i_p.fk_PRODUTOS_id_produto);
