@@ -1,49 +1,37 @@
-SELECT * FROM item_pedidos JOIN produtos ON item_pedidos.fk_PRODUTOS_id_produto = produtos.id_produto 
-WHERE item_pedidos.fk_PEDIDOS_id_pedido;
+--       ITENS PEDIDO E PRODUTOS 
+SELECT * FROM item_pedidos JOIN produtos ON item_pedidos.fk_PRODUTOS_id_produto = produtos.id_produto WHERE item_pedidos.fk_PEDIDOS_id_pedido;
 
-SELECT * FROM item_pedidos JOIN produtos ON item_pedidos.fk_PRODUTOS_id_produto = produtos.id_produto SUM(item_pedidos.valor) 
-WHERE item_pedidos.fk_PEDIDOS_id_pedido = 1;
 
-SELECT c.nome, c.telefone, e.logradouro, e.cep FROM clientes AS c JOIN enderecos AS e ON c.FK_ENDERECOS_id_endereco = e.id_endereco;
-
-SELECT c.nome, c.telefone, e.logradouro, e.cep FROM clientes c JOIN CLIENTES_ENDERECOS c_e ON c_e.FK_CLIENTES_id_cliente = c.id_cliente 
-JOIN enderecos e ON  c_e.FK_ENDERECOS_id_endereco = e.id_endereco;
+-- VALOR TOTAL DE TODOS OS PRODUTOS
+SELECT  SUM(valor) SOMA_TOTAL FROM produtos_frutas;
 
 
 
 
-
-
-SELECT c.nome, c.telefone, e.logradouro, e.cep FROM 
-clientes c JOIN CLIENTES_ENDERECOS c_e ON c_e.FK_CLIENTES_id_cliente = c.id_cliente 
-JOIN enderecos e ON c_e.FK_ENDERECOS_id_endereco = e.id_endereco;
+-- RELACAO DE CLIENTE COM SEUS ENDERECOS
+SELECT c.nome, c.telefone, e.logradouro, e.cep FROM clientes c JOIN CLIENTES_ENDERECOS c_e ON c_e.FK_CLIENTES_id_cliente = c.id_cliente JOIN enderecos e ON c_e.FK_ENDERECOS_id_endereco = e.id_endereco;
 
 
 
+--      SOMA DOS VALORES DOS PEDIDOS POR DATA
+SELECT data_validade, SUM(valor) FROM produtos_frutas GROUP BY data_validade;
+
+SELECT DISTINCT(data_validade) FROM produtos_frutas;
 
 
 
-SELECT p.forma_pagamento, sum(DISTINCT p.valor_total) as valor_total FROM clientes c 
-INNER JOIN pedidos p ON p.FK_CLIENTES_id_cliente = c.id_cliente LEFT JOIN item_pedidos i_p ON i_p.fk_PEDIDOS_id_pedido 
+--      SOMA OS VALORES DISTINTOS
+SELECT p.forma_pagamento, sum(DISTINCT p.valor_total) as valor_total FROM clientes c INNER JOIN pedidos p ON p.FK_CLIENTES_id_cliente = c.id_cliente LEFT JOIN item_pedidos i_p ON i_p.fk_PEDIDOS_id_pedido;
+--      SOMA TODOS OS VALORES 
+SELECT p.forma_pagamento, sum(p.valor_total) as valor_total FROM clientes c INNER JOIN pedidos p ON p.FK_CLIENTES_id_cliente = c.id_cliente LEFT JOIN item_pedidos i_p ON i_p.fk_PEDIDOS_id_pedido;
 
 
 
+-- SOMA AGRUPANDO AS FORMAS DE PAGAMENTOS
+SELECT SUM(valor_total), forma_pagamento FROM pedidos  GROUP BY forma_pagamento;
 
+--  SOMA A QUANTIDADE DE PRODUTOS AGRUPANDO PELO ID_PRODUTOS QUE ESTA NA TABELA ITEM PEDIDOS OU SEJA A QUANTIDADE DE CADA PRODUTOS VENDIDOS 
+SELECT p.nome, p.descricao, SUM(i_p.quantidade) AS quantidade FROM produtos p JOIN item_pedidos i_p ON i_p.fk_PRODUTOS_id_produto = p.id_produto  GROUP BY (i_p.fk_PRODUTOS_id_produto);
 
-SELECT p.nome, SUM(i_p.valor) AS valor_total FROM produtos p JOIN item_pedidos i_p ON i_p.fk_PRODUTOS_id_produto = p.id_produto  GROUP BY (p.nome);
-
-
-
-
-SELECT p.nome, SUM(i_p.quantidade) AS valor_total FROM produtos p JOIN item_pedidos i_p ON i_p.fk_PRODUTOS_id_produto = p.id_produto  GROUP BY (p.nome);
-
-
-
-
-SELECT p.nome,  (SUM(i_p.quantidade)*SUM(i_p.valor)) AS valor_total, SUM(i_p.quantidade) AS quantidade FROM produtos p 
-JOIN item_pedidos i_p ON i_p.fk_PRODUTOS_id_produto = p.id_produto  GROUP BY (p.nome);
-
-
-SELECT idfuncionarios AS ID, UPPER(nome), telefone, 'Funcionarios' AS tipo FROM funcionarios WHERE nome LIKE '%a%'
-UNION 
-SELECT id_cliente, UPPER(nome), telefone, 'Clientes' AS tipo FROM clientes  WHERE nome LIKE '%a%';
+--  SOMA A QUANTIDADE DE PRODUTOS AGRUPANDO PELO NOME, QUASE A MESMA FUNCIONALIDADE DA QUERY ACIMA 
+SELECT p.nome, SUM(i_p.quantidade) AS quantidade FROM produtos p JOIN item_pedidos i_p ON i_p.fk_PRODUTOS_id_produto = p.id_produto  GROUP BY (p.nome);
